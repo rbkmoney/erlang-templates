@@ -1,7 +1,7 @@
 #!groovy
 
 def finalHook = {
-  runStage('store artifacts') {
+  runStage('store CT logs') {
     dir('snakeoil') {
       archive '_build/test/logs/'
     }
