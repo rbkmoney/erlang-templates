@@ -2,9 +2,7 @@
 
 def finalHook = {
   runStage('store CT logs') {
-    dir('snakeoil') {
-      archive '_build/test/logs/'
-    }
+    archive '_build/test/logs/'
   }
 }
 
