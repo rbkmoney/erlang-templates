@@ -61,9 +61,8 @@ build('erlang-service-template', 'docker-host', finalHook) {
       sh 'git commit -m "Initial commit"'
     }
 
-    // ToDo(arentrue): set -b to master when build_utils branch is merged
     runStage('add git submodule') {
-      withGithubCredentials("submodule add -b fix/MSPF-74/optimize-jenkins-pipeline git@github.com:rbkmoney/build_utils.git build_utils")
+      withGithubCredentials("submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils")
     }
 
     def pipeDefault
