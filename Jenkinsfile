@@ -12,6 +12,7 @@ build('erlang-service-template', 'docker-host', finalHook) {
   ws {
     try {
       checkoutRepo()
+      loadBuildUtils()
 
       runStage('get ws path') {
         sh 'echo $PWD  > .ws_path'
@@ -21,15 +22,23 @@ build('erlang-service-template', 'docker-host', finalHook) {
       runStage('generate erlang service') {
         docker.withRegistry('https://dr.rbkmoney.com/v2/', 'dockerhub-rbkmoneycibot') {
           docker.image('rbkmoney/build:latest').inside("-e HOME=${env.WS_PATH}") {
-            sh 'mkdir -p ~/.config/rebar3/templates'
-            sh 'cp -rv ./* ~/.config/rebar3/templates'
-            sh 'rebar3 new erlang-service name=snakeoil'
+            sh 'make gen'
           }
         }
       }
 
       runStage('archive snakeoil') {
         archive 'snakeoil/'
+      }
+
+      // Update service_erlang image
+      if (env.BRANCH_NAME == 'master') {
+        runStage('build image') {
+          sh "make build_image"
+        }
+        runStage('push image') {
+          sh "make push_image"
+        }
       }
     } finally {
       runStage('cleanup sub ws') {
@@ -69,11 +78,9 @@ build('erlang-service-template', 'docker-host', finalHook) {
       runStage('compile service') {
         sh "make wc_compile ${imageTags}"
       }
-
       runStage('xref service') {
         sh "make wc_xref ${imageTags}"
       }
-
       runStage('dialyze service') {
         sh "make wc_dialyze ${imageTags}"
       }
@@ -81,7 +88,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
       runStage('test service') {
         sh "make wdeps_test ${imageTags}"
       }
-
       runStage('lint service') {
         sh "make wc_lint ${imageTags}"
       }
