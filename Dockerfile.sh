@@ -3,7 +3,7 @@ cat <<EOF
 FROM $BASE_IMAGE
 MAINTAINER Anton Belyaev <a.belyaev@rbkmoney.com>
 LABEL base_image_tag=$BASE_IMAGE_TAG
-LABEL build_image_tag='n/a'
+LABEL build_image_tag=null
 # A bit of magic to get a proper branch name
 # even when the HEAD is detached (Hey Jenkins!
 # BRANCH_NAME is available in Jenkins env).
