@@ -2,20 +2,20 @@
 cat <<EOF
 FROM $BASE_IMAGE
 MAINTAINER Anton Belyaev <a.belyaev@rbkmoney.com>
-LABEL com.rbkmoney.base_image_tag=$BASE_IMAGE_TAG
-LABEL com.rbkmoney.build_image_tag=null
-# A bit of magic to get a proper branch name
+# A bit of magic below to get a proper branch name
 # even when the HEAD is detached (Hey Jenkins!
 # BRANCH_NAME is available in Jenkins env).
-LABEL com.rbkmoney.branch=$( \
-  if [ "HEAD" != $(git rev-parse --abbrev-ref HEAD) ]; then \
-    echo $(git rev-parse --abbrev-ref HEAD); \
-  elif [ -n "$BRANCH_NAME" ]; then \
-    echo $BRANCH_NAME; \
-  else \
-    echo $(git name-rev --name-only HEAD); \
-  fi)
-LABEL com.rbkmoney.commit=$(git rev-parse HEAD)
-LABEL com.rbkmoney.commit_number=$(git rev-list --count HEAD)
+LABEL com.rbkmoney.$SERVICE_NAME.parent=$BASE_IMAGE_NAME \
+      com.rbkmoney.$SERVICE_NAME.parent_tag=$BASE_IMAGE_TAG \
+      com.rbkmoney.$SERVICE_NAME.commit_id=$(git rev-parse HEAD) \
+      com.rbkmoney.$SERVICE_NAME.commit_num=$(git rev-list --count HEAD) \
+      com.rbkmoney.$SERVICE_NAME.branch=$( \
+        if [ "HEAD" != $(git rev-parse --abbrev-ref HEAD) ]; then \
+          echo $(git rev-parse --abbrev-ref HEAD); \
+        elif [ -n "$BRANCH_NAME" ]; then \
+          echo $BRANCH_NAME; \
+        else \
+          echo $(git name-rev --name-only HEAD); \
+        fi)
 EOF
 
