@@ -22,12 +22,12 @@ build('erlang-service-template', 'docker-host', finalHook) {
         archive 'snakeoil/'
       }
 
-      // Update service_erlang image
+      runStage('build service_erlang image') {
+        sh "make build_image"
+      }
+
       if (env.BRANCH_NAME == 'master') {
-        runStage('build image') {
-          sh "make build_image"
-        }
-        runStage('push image') {
+        runStage('push service_erlang image') {
           sh "make push_image"
         }
       }
