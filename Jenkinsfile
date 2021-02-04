@@ -57,7 +57,7 @@ build('erlang-service-template', 'docker-host', finalHook) {
     }
 
     pipeDefault() {
-      def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb
+      def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb"
 
       runStage('compile service') {
         withGithubPrivkey {
