@@ -60,4 +60,4 @@ erlang-service:
         apps_dir="apps" (Directory where applications will be created if needed)
 ```
 
-В случае необходимости доработки в первую очередь обращайтесь к [официальной документации](http://www.rebar3.org/docs/using-templates).
+В случае необходимости доработки в первую очередь обращайтесь к [официальной документации](http://rebar3.org/docs/tutorials/templates/).
