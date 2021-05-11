@@ -8,7 +8,8 @@
 
 {template, "service-templates/apps/app/src/app.app.src", "{{name}}/{{apps_dir}}/{{name}}/src/{{name}}.app.src"}.
 {template, "service-templates/apps/app/src/app.erl", "{{name}}/{{apps_dir}}/{{name}}/src/{{name}}.erl"}.
-{template, "service-templates/apps/app/test/app_tests_SUITE.erl", "{{name}}/{{apps_dir}}/{{name}}/test/{{name}}_tests_SUITE.erl"}.
+{template, "service-templates/apps/app/test/app_tests_SUITE.erl",
+    "{{name}}/{{apps_dir}}/{{name}}/test/{{name}}_tests_SUITE.erl"}.
 {template, "service-templates/config/sys.config", "{{name}}/config/sys.config"}.
 {template, "service-templates/config/vm.args", "{{name}}/config/vm.args"}.
 {template, "service-templates/doc/index.md", "{{name}}/doc/index.md"}.
