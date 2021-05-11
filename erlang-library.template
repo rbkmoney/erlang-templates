@@ -25,7 +25,7 @@
 %% Docs
 {template, "library-templates/README.md", "{{name}}/README.md"}.
 
-%% Tools configs
+%% Tools
 {file, "common-templates/erlang_ls.config", "{{name}}/erlang_ls.config"}.
 {file, "common-templates/editorconfig", "{{name}}/.editorconfig"}.
 
