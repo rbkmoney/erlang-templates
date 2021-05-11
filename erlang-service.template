@@ -24,4 +24,5 @@
 {template, "erlang-service-files/docker-compose.sh", "{{name}}/docker-compose.sh"}.
 {chmod, "{{name}}/docker-compose.sh", 8#755}.
 {file, "erlang-service-files/erlang_ls.config", "{{name}}/erlang_ls.config"}.
+{file, "erlang-service-files/editorconfig", "{{name}}/.editorconfig"}.
 {file, "erlang-service-files/LICENSE", "{{name}}/LICENSE"}.
