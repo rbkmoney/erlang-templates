@@ -1,8 +1,8 @@
-{description, "Erlang OTP Service"}.
+{description, "Erlang OTP Library"}.
 
 {variables, [
-    {name, "myapp", "Name of the service, an application with this name will also be created"},
-    {description, "A service that does something", "Short description of purpose of the service"},
+    {name, "myapp", "Name of the library, an application with this name will also be created"},
+    {description, "A library that does something", "Short description of purpose of the library"},
     {version, "1", "Initial version string"}
 ]}.
 
