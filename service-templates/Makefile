@@ -46,7 +46,7 @@ shell: submodules
 	$(REBAR) shell
 
 lint:
-	elvis rock
+	$(REBAR) lint
 
 check_format:
 	$(REBAR) fmt -c
@@ -75,4 +75,3 @@ plt_update:
 
 release: submodules
 	$(REBAR) as prod release
-
