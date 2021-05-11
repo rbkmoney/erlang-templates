@@ -13,8 +13,8 @@
 {template, "service-templates/config/vm.args", "{{name}}/config/vm.args"}.
 {template, "service-templates/doc/index.md", "{{name}}/doc/index.md"}.
 {template, "service-templates/rebar.config", "{{name}}/rebar.config"}.
+{template, "service-templates/rebar.config.script", "{{name}}/rebar.config.script"}.
 {template, "common-templates/elvis.config", "{{name}}/elvis.config"}.
-{template, "common-templates/rebar.config.script", "{{name}}/rebar.config.script"}.
 {template, "common-templates/gitignore", "{{name}}/.gitignore"}.
 {template, "service-templates/README.md", "{{name}}/README.md"}.
 {template, "service-templates/Makefile", "{{name}}/Makefile"}.
