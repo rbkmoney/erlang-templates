@@ -9,6 +9,12 @@ def finalHook = {
 }
 
 build('erlang-service-template', 'docker-host', finalHook) {
+  runStage('add git submodule') {
+    withGithubSshCredentials {
+      sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
+    }
+  }
+
   def pipeDefault
   def withWsCache
   runStage('load library pipeline') {
@@ -49,12 +55,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
       sh 'git config user.name "$COMMIT_AUTHOR"'
       sh 'git add README.md'
       sh 'git commit -m "Initial commit"'
-    }
-
-    runStage('add git submodule') {
-      withGithubSshCredentials {
-        sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
-      }
     }
 
     pipeDefault() {
