@@ -65,7 +65,7 @@ clean:
 
 distclean:
 	$(REBAR) clean -a
-	rm -rfv _build _builds _cache _steps _temp
+	rm -rfv _build
 
 dialyze:
 	$(REBAR) dialyzer
