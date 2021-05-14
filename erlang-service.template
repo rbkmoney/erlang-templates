@@ -38,7 +38,6 @@
 
 %% CI/CD
 {template, "service-templates/Jenkinsfile", "{{name}}/Jenkinsfile"}.
-{template, "service-templates/rebar.config.script", "{{name}}/rebar.config.script"}.
 
 %% Licenses
 {file, "common-templates/LICENSE", "{{name}}/LICENSE"}.

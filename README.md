@@ -33,7 +33,6 @@ $ git submodule init
 >  * GNU Make
 >  * [rebar3](http://www.rebar3.org/)
 >  * [elvis](https://github.com/inaka/elvis/releases)
->  * [wercker cli](http://devcenter.wercker.com/cli/index.html)
 >
 > К счастью, теперь все это доступно в build образе, работать с которым легко и удобно через `make`:
 >  * wc_<target> - запустить в build контейнере
