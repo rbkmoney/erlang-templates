@@ -9,9 +9,9 @@ def finalHook = {
 }
 
 build('erlang-service-template', 'docker-host', finalHook) {
-  runStage('add git submodule') {
+  runStage('clone build_utils') {
     withGithubSshCredentials {
-      sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
+      sh "git clone git@github.com:rbkmoney/build_utils.git build_utils"
     }
   }
 
