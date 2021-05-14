@@ -9,6 +9,14 @@ def finalHook = {
 }
 
 build('erlang-service-template', 'docker-host', finalHook) {
+  def pipeDefault
+  def withWsCache
+  runStage('load library pipeline') {
+    env.JENKINS_LIB = "build_utils/jenkins_lib"
+    pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
+    withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
+  }
+
   // erlang-service-template
   ws {
     try {
@@ -47,14 +55,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
       withGithubSshCredentials {
         sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
       }
-    }
-
-    def pipeDefault
-    def withWsCache
-    runStage('load service pipeline') {
-      env.JENKINS_LIB = "build_utils/jenkins_lib"
-      pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
-      withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
     }
 
     pipeDefault() {
@@ -121,14 +121,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
       sh 'git config user.name "$COMMIT_AUTHOR"'
       sh 'git add README.md'
       sh 'git commit -m "Initial commit"'
-    }
-
-    def pipeDefault
-    def withWsCache
-    runStage('load library pipeline') {
-      env.JENKINS_LIB = "build_utils/jenkins_lib"
-      pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
-      withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
     }
 
     pipeDefault() {
