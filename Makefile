@@ -25,9 +25,11 @@ add_template:
 	mkdir -p ~/.config/rebar3/templates
 	cp -rv ./* ~/.config/rebar3/templates
 
-gen: add_template
+gen_service: add_template
 	rebar3 new erlang-service name=snakeoil
+
+gen_library: add_template
+    rebar3 new erlang-service name=trickster
 
 clean:
 	rm Dockerfile
-
