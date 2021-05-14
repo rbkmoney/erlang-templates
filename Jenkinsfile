@@ -9,6 +9,7 @@ def finalHook = {
 }
 
 build('erlang-service-template', 'docker-host', finalHook) {
+  // erlang-service-template
   ws {
     try {
       checkoutRepo()
@@ -88,74 +89,73 @@ build('erlang-service-template', 'docker-host', finalHook) {
       }
     }
   }
-}
 
-build('erlang-library-template', 'docker-host', finalHook) {
-    ws {
-        try {
-            checkoutRepo()
-            loadBuildUtils()
+  // erlang-library-template
+  ws {
+    try {
+      checkoutRepo()
+      loadBuildUtils()
 
-            runStage('generate erlang library: trickster') {
-                sh 'make wc_gen_library'
-            }
+      runStage('generate erlang library: trickster') {
+        sh 'make wc_gen_library'
+      }
 
-            runStage('archive trickster') {
-                archive 'trickster/'
-            }
-        } finally {
-            runStage('cleanup sub ws') {
-                sh 'rm -rf * .* || echo ignore'
-            }
-        }
-    } //close other ws
+      runStage('archive trickster') {
+        archive 'trickster/'
+      }
+    } finally {
+      runStage('cleanup sub ws') {
+        sh 'rm -rf * .* || echo ignore'
+      }
+    }
+  } //close other ws
 
-    runStage('unarchive trickster') {
-        unarchive mapping: ['trickster/': '.']
+  runStage('unarchive trickster') {
+    unarchive mapping: ['trickster/': '.']
+  }
+
+  dir('trickster') {
+    runStage('init git repo') {
+      sh 'git init'
+      sh 'git config user.email "$CHANGE_AUTHOR_EMAIL"'
+      sh 'git config user.name "$COMMIT_AUTHOR"'
+      sh 'git add README.md'
+      sh 'git commit -m "Initial commit"'
     }
 
-    dir('trickster') {
-        runStage('init git repo') {
-            sh 'git init'
-            sh 'git config user.email "$CHANGE_AUTHOR_EMAIL"'
-            sh 'git config user.name "$COMMIT_AUTHOR"'
-            sh 'git add README.md'
-            sh 'git commit -m "Initial commit"'
-        }
-
-        def pipeDefault
-        def withWsCache
-        runStage('load library pipeline') {
-            env.JENKINS_LIB = "build_utils/jenkins_lib"
-            pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
-            withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
-        }
-
-        pipeDefault() {
-            def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb"
-
-            runStage('compile library') {
-                withGithubPrivkey {
-                    sh "make wc_compile ${imageTags}"
-                }
-            }
-            runStage('lint library') {
-                sh "make wc_lint ${imageTags}"
-            }
-            runStage('check formatting for library') {
-                sh "make wc_check_format ${imageTags}"
-            }
-            runStage('xref library') {
-                sh "make wc_xref ${imageTags}"
-            }
-            runStage('dialyze library') {
-                withWsCache("_build/default/rebar3_23.2.3_plt") {
-                    sh "make wc_dialyze ${imageTags}"
-                }
-            }
-            runStage('test library') {
-                sh "make wdeps_test ${imageTags}"
-            }
-        }
+    def pipeDefault
+    def withWsCache
+    runStage('load library pipeline') {
+      env.JENKINS_LIB = "build_utils/jenkins_lib"
+      pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
+      withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
     }
+
+    pipeDefault() {
+      def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb"
+
+      runStage('compile library') {
+        withGithubPrivkey {
+          sh "make wc_compile ${imageTags}"
+        }
+      }
+      runStage('lint library') {
+        sh "make wc_lint ${imageTags}"
+      }
+      runStage('check formatting for library') {
+        sh "make wc_check_format ${imageTags}"
+      }
+      runStage('xref library') {
+        sh "make wc_xref ${imageTags}"
+      }
+      runStage('dialyze library') {
+        withWsCache("_build/default/rebar3_23.2.3_plt") {
+          sh "make wc_dialyze ${imageTags}"
+        }
+      }
+      runStage('test library') {
+        sh "make wdeps_test ${imageTags}"
+      }
+    }
+  }
 }
