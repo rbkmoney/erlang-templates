@@ -57,6 +57,12 @@ build('erlang-service-template', 'docker-host', finalHook) {
       sh 'git commit -m "Initial commit"'
     }
 
+    runStage('add git submodule') {
+      withGithubSshCredentials {
+        sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
+      }
+    }
+
     pipeDefault() {
       def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb"
 
@@ -123,30 +129,37 @@ build('erlang-service-template', 'docker-host', finalHook) {
       sh 'git commit -m "Initial commit"'
     }
 
+    runStage('add git submodule') {
+      withGithubSshCredentials {
+        sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
+      }
+    }
+
+
     pipeDefault() {
       def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb"
 
       runStage('compile library') {
         withGithubPrivkey {
-          sh "make wc_compile ${imageTags}"
+          sh "make wc_compile ${imageTags} --file Makefile.ci"
         }
       }
       runStage('lint library') {
-        sh "make wc_lint ${imageTags}"
+        sh "make wc_lint ${imageTags} --file Makefile.ci"
       }
       runStage('check formatting for library') {
-        sh "make wc_check_format ${imageTags}"
+        sh "make wc_check_format ${imageTags} --file Makefile.ci"
       }
       runStage('xref library') {
-        sh "make wc_xref ${imageTags}"
+        sh "make wc_xref ${imageTags} --file Makefile.ci"
       }
       runStage('dialyze library') {
         withWsCache("_build/default/rebar3_23.2.3_plt") {
-          sh "make wc_dialyze ${imageTags}"
+          sh "make wc_dialyze ${imageTags} --file Makefile.ci"
         }
       }
       runStage('test library') {
-        sh "make wdeps_test ${imageTags}"
+        sh "make wdeps_test ${imageTags} --file Makefile.ci"
       }
     }
   }
