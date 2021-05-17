@@ -141,25 +141,25 @@ build('erlang-service-template', 'docker-host', finalHook) {
 
       runStage('compile library') {
         withGithubPrivkey {
-          sh "make wc_compile ${imageTags} --file Makefile.ci"
+          sh "make --file=Makefile.ci wc_compile ${imageTags}"
         }
       }
       runStage('lint library') {
-        sh "make wc_lint ${imageTags} --file Makefile.ci"
+        sh "make --file=Makefile.ci wc_lint ${imageTags}"
       }
       runStage('check formatting for library') {
-        sh "make wc_check_format ${imageTags} --file Makefile.ci"
+        sh "make --file=Makefile.ci wc_check_format ${imageTags}"
       }
       runStage('xref library') {
-        sh "make wc_xref ${imageTags} --file Makefile.ci"
+        sh "make --file=Makefile.ci wc_xref ${imageTags}"
       }
       runStage('dialyze library') {
         withWsCache("_build/default/rebar3_23.2.3_plt") {
-          sh "make wc_dialyze ${imageTags} --file Makefile.ci"
+          sh "make --file=Makefile.ci wc_dialyze ${imageTags}"
         }
       }
       runStage('test library') {
-        sh "make wdeps_test ${imageTags} --file Makefile.ci"
+        sh "make --file=Makefile.ci wdeps_test ${imageTags}"
       }
     }
   }
