@@ -104,6 +104,7 @@ build('erlang-service-template', 'docker-host', finalHook) {
 
       runStage('generate erlang library: trickster') {
         sh 'make wc_gen_library'
+        sh 'cp Makefile.ci trickster/'
       }
 
       runStage('archive trickster') {

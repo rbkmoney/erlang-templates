@@ -21,9 +21,11 @@ $(SUBTARGETS): %/.git: %
 
 submodules: $(SUBTARGETS)
 
-add_template:
+~/.config/rebar3/templates:
 	mkdir -p ~/.config/rebar3/templates
 	cp -rv ./* ~/.config/rebar3/templates
+
+add_template: ~/.config/rebar3/templates
 
 gen_service: add_template
 	rebar3 new erlang-service name=snakeoil
