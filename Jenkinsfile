@@ -111,8 +111,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
           service-templates/docker-compose.sh \\
           trickster/
         """
-        sh 'chmod 755 trickster/Dockerfile.sh trickster/docker-compose.sh'
-
       }
 
       runStage('archive trickster') {
@@ -127,6 +125,7 @@ build('erlang-service-template', 'docker-host', finalHook) {
 
   runStage('unarchive trickster') {
     unarchive mapping: ['trickster/': '.']
+    sh 'chmod 755 trickster/Dockerfile.sh trickster/docker-compose.sh'
   }
 
   dir('trickster') {
