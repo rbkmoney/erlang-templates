@@ -104,7 +104,15 @@ build('erlang-service-template', 'docker-host', finalHook) {
 
       runStage('generate erlang library: trickster') {
         sh 'make wc_gen_library'
-        sh 'cp library-templates/Makefile.ci trickster/'
+        sh """
+        cp                                    \\
+          library-templates/Makefile.ci       \\
+          service-templates/Dockerfile.sh     \\
+          service-templates/docker-compose.sh \\
+          trickster/'
+        """
+        sh 'chmod 755 snakeoil/Dockerfile.sh snakeoil/docker-compose.sh'
+
       }
 
       runStage('archive trickster') {
