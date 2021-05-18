@@ -109,7 +109,7 @@ build('erlang-service-template', 'docker-host', finalHook) {
           library-templates/Makefile.ci       \\
           service-templates/Dockerfile.sh     \\
           service-templates/docker-compose.sh \\
-          trickster/'
+          trickster/
         """
         sh 'chmod 755 snakeoil/Dockerfile.sh snakeoil/docker-compose.sh'
 
