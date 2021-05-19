@@ -33,7 +33,6 @@
 {template, "service-templates/doc/index.md", "{{name}}/doc/index.md"}.
 
 %% Tools
-{file, "common-templates/erlang_ls.config", "{{name}}/erlang_ls.config"}.
 {file, "common-templates/editorconfig", "{{name}}/.editorconfig"}.
 
 %% CI/CD

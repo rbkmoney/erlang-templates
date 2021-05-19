@@ -4,43 +4,10 @@
 *.beam
 *.plt
 
-# Other artifacts
-log
+# Run artifacts
 erl_crash.dump
+log
 
 # Files generated from scripts
 Dockerfile
 docker-compose.yml
-
-
-# Generic ignore
-
-## Tool: rebar3
-_checkouts/
-
-## Tool: EDTS
-.edts
-
-## Tool: *tags
-.tags*
-tags
-
-## Editors: temp files
-*~
-
-## Editor: Sublime
-*.sublime-workspace
-
-## Editor: Emacs
-\#*
-\#*\#
-.\#*
-.projectile
-.dir-locals.el
-
-## Editor: IntelliJ IDEA
-out/
-.idea/
-
-## OS: macOS
-.DS_Store
