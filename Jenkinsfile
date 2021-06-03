@@ -106,7 +106,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
         sh 'make wc_gen_library'
         sh """
         cp                                    \\
-          library-templates/Makefile.ci       \\
           service-templates/Dockerfile.sh     \\
           service-templates/docker-compose.sh \\
           trickster/
@@ -149,25 +148,25 @@ build('erlang-service-template', 'docker-host', finalHook) {
 
       runStage('compile library') {
         withGithubPrivkey {
-          sh "make --file=Makefile.ci wc_compile ${imageTags}"
+          sh "make wc_compile ${imageTags}"
         }
       }
       runStage('lint library') {
-        sh "make --file=Makefile.ci wc_lint ${imageTags}"
+        sh "make wc_lint ${imageTags}"
       }
       runStage('check formatting for library') {
-        sh "make --file=Makefile.ci wc_check_format ${imageTags}"
+        sh "make wc_check_format ${imageTags}"
       }
       runStage('xref library') {
-        sh "make --file=Makefile.ci wc_xref ${imageTags}"
+        sh "make wc_xref ${imageTags}"
       }
       runStage('dialyze library') {
         withWsCache("_build/default/rebar3_23.2.3_plt") {
-          sh "make --file=Makefile.ci wc_dialyze ${imageTags}"
+          sh "make wc_dialyze ${imageTags}"
         }
       }
       runStage('test library') {
-        sh "make --file=Makefile.ci wdeps_test ${imageTags}"
+        sh "make wdeps_test ${imageTags}"
       }
     }
   }
