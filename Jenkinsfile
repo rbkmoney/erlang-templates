@@ -81,7 +81,8 @@ build('erlang-service-template', 'docker-host', finalHook) {
         sh "make wc_xref ${imageTags}"
       }
       runStage('dialyze service') {
-        withWsCache("_build/default/rebar3_23.2.3_plt") {
+        withWsCache("_build/test/rebar3_23.2.3_plt") {
+
           sh "make wc_dialyze ${imageTags}"
         }
       }
@@ -161,7 +162,7 @@ build('erlang-service-template', 'docker-host', finalHook) {
         sh "make wc_xref ${imageTags}"
       }
       runStage('dialyze library') {
-        withWsCache("_build/default/rebar3_23.2.3_plt") {
+        withWsCache("_build/test/rebar3_23.2.3_plt") {
           sh "make wc_dialyze ${imageTags}"
         }
       }
