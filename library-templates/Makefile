@@ -63,7 +63,4 @@ distclean:
 	rm -rfv _build
 
 dialyze:
-	$(REBAR) as test dialyzer
-
-plt_update:
-	$(REBAR) as test dialyzer -u true -s false
+	$(REBAR) as test dialyzer -u true -s true

@@ -68,10 +68,7 @@ distclean:
 	rm -rfv _build
 
 dialyze:
-	$(REBAR) dialyzer
-
-plt_update:
-	$(REBAR) dialyzer -u true -s false
+	$(REBAR) as test dialyzer -u true -s true
 
 release: submodules
 	$(REBAR) as prod release
