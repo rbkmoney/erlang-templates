@@ -1,6 +1,6 @@
 REBAR := $(shell which rebar3 2>/dev/null || which ./rebar3)
 
-CALL_ANYWHERE := all submodules compile xref lint dialyze plt_update test \
+CALL_ANYWHERE := all submodules compile xref lint dialyze test \
 shell clean distclean format check_format
 
 # build_utils-only required part
