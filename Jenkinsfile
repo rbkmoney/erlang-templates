@@ -1,5 +1,7 @@
 #!groovy
 
+def imageTags = "BASE_IMAGE_TAG=117a2e28e18d41d4c3eb76f5d00af117872af5ac BUILD_IMAGE_TAG=ef20e2ec1cb1528e9214bdeb862b15478950d5cd"
+
 def finalHook = {
   runStage('store CT logs') {
     dir('snakeoil') {
@@ -64,8 +66,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
     }
 
     pipeDefault() {
-      def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb"
-
       runStage('compile service') {
         withGithubPrivkey {
           sh "make wc_compile ${imageTags}"
@@ -145,8 +145,6 @@ build('erlang-service-template', 'docker-host', finalHook) {
 
 
     pipeDefault() {
-      def imageTags = "BASE_IMAGE_TAG=51bd5f25d00cbf75616e2d672601dfe7351dcaa4 BUILD_IMAGE_TAG=61a001bbb48128895735a3ac35b0858484fdb2eb"
-
       runStage('compile library') {
         withGithubPrivkey {
           sh "make wc_compile ${imageTags}"
