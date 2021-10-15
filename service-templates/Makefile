@@ -46,7 +46,9 @@ shell: submodules
 	$(REBAR) shell
 
 lint:
-	$(REBAR) lint
+    # Fix to this as soon as prometheus_cowboy has plugins fixed
+    # $(REBAR) lint
+	elvis rock -V
 
 check_format:
 	$(REBAR) fmt -c
