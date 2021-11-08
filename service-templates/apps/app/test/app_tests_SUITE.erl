@@ -28,17 +28,7 @@ init_per_suite(C) ->
 
 -spec end_per_suite(config()) -> any().
 end_per_suite(C) ->
-    [application_stop(App) || App <- proplists:get_value(apps, C)].
-
-application_stop(App = sasl) ->
-    %% hack for preventing sasl deadlock
-    %% http://erlang.org/pipermail/erlang-questions/2014-May/079012.html
-    error_logger:delete_report_handler(cth_log_redirect),
-    ok = application:stop(App),
-    error_logger:add_report_handler(cth_log_redirect),
-    ok;
-application_stop(App) ->
-    application:stop(App).
+    [application:stop(App) || App <- proplists:get_value(apps, C)].
 
 %%
 %% tests

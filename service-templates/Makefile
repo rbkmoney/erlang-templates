@@ -21,7 +21,7 @@ BUILD_IMAGE_NAME := build-erlang
 BUILD_IMAGE_TAG := $(BUILD_IMAGE_TAG) # Replace with the current version (tag) for build image!
 
 CALL_ANYWHERE := all submodules compile xref lint dialyze test \
-				shell release clean distclean format check_format
+				 shell release clean distclean format check_format
 
 # Hint: 'test' might be a candidate for CALL_W_CONTAINER-only target
 CALL_W_CONTAINER := $(CALL_ANYWHERE)
@@ -46,7 +46,7 @@ shell: submodules
 	$(REBAR) shell
 
 lint:
-    # Fix to this as soon as prometheus_cowboy has plugins fixed
+    # TODO: Fix to this as soon as prometheus_cowboy has plugins fixed
     # $(REBAR) lint
 	elvis rock -V
 
