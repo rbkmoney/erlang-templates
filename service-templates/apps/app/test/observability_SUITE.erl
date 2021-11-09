@@ -15,8 +15,8 @@
 -spec all() -> [test_name()].
 all() ->
     [
-     health_check_works_test,
-     prometheus_works_test
+        health_check_works_test,
+        prometheus_works_test
     ].
 
 %%
@@ -38,15 +38,18 @@ end_per_suite(C) ->
 -spec health_check_works_test(config()) -> any().
 health_check_works_test(_) ->
     {ok, {{_, 200, "OK"}, Headers, Body}} = httpc:request("http://localhost:8080/health"),
-    "application/json" = proplists:get_value("content-type",  Headers),
-    true = nomatch /= string:find(Body, "\"service\":\"{{name}}\"")
+    "application/json" = proplists:get_value("content-type", Headers),
+    true = nomatch /= string:find(Body, "\"service\":\"{{name}}\""),
     ok.
 
 -spec prometheus_works_test(config()) -> any().
 prometheus_works_test(_) ->
     {ok, {{_, 200, "OK"}, Headers, Body}} = httpc:request("http://localhost:8080/health"),
-    true = nomatch /= string:prefix(
-                        "text/plain",
-                        proplists:get_value("content-type",  Headers)),
+    true =
+        nomatch /=
+            string:prefix(
+                "text/plain",
+                proplists:get_value("content-type", Headers)
+            ),
     true = nomatch /= string:find(Body, "erlang_vm_memory_bytes_total{kind=\"system\"}"),
     ok.

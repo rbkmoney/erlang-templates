@@ -51,7 +51,8 @@ init([]) ->
                 transport_opts => genlib_app:env(?MODULE, transport_opts, #{}),
                 protocol_opts => genlib_app:env(?MODULE, protocol_opts, #{}),
                 event_handler => {scoper_woody_event_handler, get_event_handler_opts()},
-                handlers => [], %% Woody services to call are to be placed here
+                %% Woody services to call are to be placed here
+                handlers => [],
                 additional_routes => get_additional_routes(),
                 shutdown_timeout => genlib_app:env(?MODULE, shutdown_timeout, 0)
             }
