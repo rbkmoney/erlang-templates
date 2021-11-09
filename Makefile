@@ -1,7 +1,7 @@
 UTILS_PATH := build_utils
 TEMPLATES_PATH := .
 
-SERVICE_NAME := service_erlang
+SERVICE_NAME := service-erlang
 
 #ToDo: Use the latest build image tag
 BUILD_IMAGE_NAME := build-erlang
