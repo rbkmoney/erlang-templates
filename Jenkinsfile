@@ -11,7 +11,7 @@ def finalHook = {
   }
 }
 
-def embedImageTagsInMakefile {
+def embedImageTagsInMakefile = {
     sh "sed -i " +
         "-e 's/^BASE_IMAGE_TAG :=/BASE_IMAGE_TAG := ${baseImageTag}' " +
         "-e 's/^BUILD_IMAGE_TAG :=/BUILD_IMAGE_TAG := ${buildImageTag}'"
