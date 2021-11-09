@@ -16,6 +16,7 @@
 -export([start/2]).
 -export([stop/1]).
 
+-define(DEFAULT_PORT, 8080).
 -define(DEFAULT_HANDLING_TIMEOUT, 60_000).
 
 -type cowboy_route_path() :: {Path :: iodata(), Handler :: module(), Opts :: any()}.
@@ -47,7 +48,7 @@ init([]) ->
             ?MODULE,
             #{
                 ip => get_ip(),
-                port => genlib_app:env(?MODULE, port, 8022),
+                port => genlib_app:env(?MODULE, port, ?DEFAULT_PORT),
                 transport_opts => genlib_app:env(?MODULE, transport_opts, #{}),
                 protocol_opts => genlib_app:env(?MODULE, protocol_opts, #{}),
                 event_handler => {scoper_woody_event_handler, get_event_handler_opts()},

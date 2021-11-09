@@ -24,6 +24,7 @@ all() ->
 %%
 -spec init_per_suite(config()) -> config().
 init_per_suite(C) ->
+    application:set_env({{name}}, health_check, #{service => {erl_health, service, [<<"{{name}}">>]}}),
     {ok, Apps} = application:ensure_all_started({{name}}),
     [{apps, Apps} | C].
 
@@ -45,13 +46,13 @@ health_check_works_test(_) ->
 
 -spec prometheus_works_test(config()) -> any().
 prometheus_works_test(_) ->
-    {ok, {Status, Headers, Body}} = httpc:request("http://localhost:8080/health"),
+    {ok, {Status, Headers, Body}} = httpc:request("http://localhost:8080/metrics"),
     {_, 200, "OK"} = Status,
     true =
         nomatch /=
             string:prefix(
-                "text/plain",
-                proplists:get_value("content-type", Headers)
+                proplists:get_value("content-type", Headers),
+                "text/plain"
             ),
     true = nomatch /= string:find(Body, "erlang_vm_memory_bytes_total{kind=\"system\"}"),
     ok.
