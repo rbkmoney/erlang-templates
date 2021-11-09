@@ -13,8 +13,8 @@ def finalHook = {
 
 def embedImageTagsInMakefile = {
     sh "sed -i " +
-        "-e 's/^BASE_IMAGE_TAG :=.*$/BASE_IMAGE_TAG := ${baseImageTag}/' " +
-        "-e 's/^BUILD_IMAGE_TAG :=.*$/BUILD_IMAGE_TAG := ${buildImageTag}/' Makefile"
+        "-e 's/^BASE_IMAGE_TAG :=.*\$/BASE_IMAGE_TAG := ${baseImageTag}/' " +
+        "-e 's/^BUILD_IMAGE_TAG :=.*\$/BUILD_IMAGE_TAG := ${buildImageTag}/' Makefile"
 }
 
 build('erlang-service-template', 'docker-host', finalHook) {
