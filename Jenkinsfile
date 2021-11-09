@@ -1,6 +1,7 @@
 #!groovy
 
-def imageTags = "BASE_IMAGE_TAG=5ea1e10733d806e40761b6c8eec93fc0c9657992 BUILD_IMAGE_TAG=785d48cbfa7e7f355300c08ba9edc6f0e78810cb"
+baseImageTag = "5ea1e10733d806e40761b6c8eec93fc0c9657992"
+buildImageTag = "785d48cbfa7e7f355300c08ba9edc6f0e78810cb"
 
 def finalHook = {
   runStage('store CT logs') {
@@ -8,6 +9,12 @@ def finalHook = {
       archive '_build/test/logs/'
     }
   }
+}
+
+def embedImageTagsInMakefile {
+    sh "sed -i " +
+        "-e 's/^BASE_IMAGE_TAG :=/BASE_IMAGE_TAG := ${baseImageTag}' " +
+        "-e 's/^BUILD_IMAGE_TAG :=/BUILD_IMAGE_TAG := ${buildImageTag}'"
 }
 
 build('erlang-service-template', 'docker-host', finalHook) {
@@ -65,36 +72,8 @@ build('erlang-service-template', 'docker-host', finalHook) {
       }
     }
 
-    pipeDefault() {
-      runStage('compile service') {
-        withGithubPrivkey {
-          sh "make wc_compile ${imageTags}"
-        }
-      }
-      runStage('lint service') {
-        sh "make wc_lint ${imageTags}"
-      }
-      runStage('check formatting for service') {
-        sh "make wc_check_format ${imageTags}"
-      }
-      runStage('xref service') {
-        sh "make wc_xref ${imageTags}"
-      }
-      runStage('dialyze service') {
-        withWsCache("_build/test/rebar3_23.2.3_plt") {
-
-          sh "make wc_dialyze ${imageTags}"
-        }
-      }
-      runStage('test service') {
-        sh "make wdeps_test ${imageTags}"
-      }
-      runStage('release service') {
-        withGithubPrivkey {
-          sh "make wc_release ${imageTags}"
-        }
-      }
-    }
+    embedImageTagsInMakefile()
+    pipeErlangService.runPipe(true, true, 'test')
   }
 
   // erlang-library-template
@@ -143,30 +122,7 @@ build('erlang-service-template', 'docker-host', finalHook) {
       }
     }
 
-
-    pipeDefault() {
-      runStage('compile library') {
-        withGithubPrivkey {
-          sh "make wc_compile ${imageTags}"
-        }
-      }
-      runStage('lint library') {
-        sh "make wc_lint ${imageTags}"
-      }
-      runStage('check formatting for library') {
-        sh "make wc_check_format ${imageTags}"
-      }
-      runStage('xref library') {
-        sh "make wc_xref ${imageTags}"
-      }
-      runStage('dialyze library') {
-        withWsCache("_build/test/rebar3_23.2.3_plt") {
-          sh "make wc_dialyze ${imageTags}"
-        }
-      }
-      runStage('test library') {
-        sh "make wdeps_test ${imageTags}"
-      }
-    }
+    embedImageTagsInMakefile()
+    pipeErlangLib.runPipe(false, true, 'test')
   }
 }
