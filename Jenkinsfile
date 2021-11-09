@@ -24,12 +24,12 @@ build('erlang-service-template', 'docker-host', finalHook) {
     }
   }
 
-  def pipeDefault
-  def withWsCache
+  def pipeErlangService
+  def pipeErlangLib
   runStage('load library pipeline') {
     env.JENKINS_LIB = "build_utils/jenkins_lib"
-    pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
-    withWsCache = load("${env.JENKINS_LIB}/withWsCache.groovy")
+    pipeErlangService = load("${env.JENKINS_LIB}/pipeErlangService.groovy")
+    pipeErlangLib = load("${env.JENKINS_LIB}/pipeErlangLib.groovy")
   }
 
   // erlang-service-template
