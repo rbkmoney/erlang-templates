@@ -37,14 +37,16 @@ end_per_suite(C) ->
 
 -spec health_check_works_test(config()) -> any().
 health_check_works_test(_) ->
-    {ok, {{_, 200, "OK"}, Headers, Body}} = httpc:request("http://localhost:8080/health"),
+    {ok, {Status, Headers, Body}} = httpc:request("http://localhost:8080/health"),
+    {_, 200, "OK"} = Status,
     "application/json" = proplists:get_value("content-type", Headers),
     true = nomatch /= string:find(Body, "\"service\":\"{{name}}\""),
     ok.
 
 -spec prometheus_works_test(config()) -> any().
 prometheus_works_test(_) ->
-    {ok, {{_, 200, "OK"}, Headers, Body}} = httpc:request("http://localhost:8080/health"),
+    {ok, {Status, Headers, Body}} = httpc:request("http://localhost:8080/health"),
+    {_, 200, "OK"} = Status,
     true =
         nomatch /=
             string:prefix(
