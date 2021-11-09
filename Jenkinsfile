@@ -24,11 +24,13 @@ build('erlang-templates', 'docker-host', finalHook) {
     }
   }
 
+  def pipeDefault
   def pipeErlangService
   def pipeErlangLib
   runStage('load library pipeline') {
     env.JENKINS_LIB = "build_utils/jenkins_lib"
     env.SH_TOOLS = "build_utils/sh"
+    pipeDefault = load("${env.JENKINS_LIB}/pipeDefault.groovy")
     pipeErlangService = load("${env.JENKINS_LIB}/pipeErlangService.groovy")
     pipeErlangLib = load("${env.JENKINS_LIB}/pipeErlangLib.groovy")
   }
@@ -40,7 +42,9 @@ build('erlang-templates', 'docker-host', finalHook) {
       loadBuildUtils()
 
       runStage('generate erlang service: snakeoil') {
-        sh 'make wc_gen_service'
+        pipeDefault() {
+            sh 'make wc_gen_service'
+        }
       }
 
       runStage('archive snakeoil') {
@@ -84,13 +88,15 @@ build('erlang-templates', 'docker-host', finalHook) {
       loadBuildUtils()
 
       runStage('generate erlang library: trickster') {
-        sh 'make wc_gen_library'
-        sh """
-        cp                                    \\
-          service-templates/Dockerfile.sh     \\
-          service-templates/docker-compose.sh \\
-          trickster/
-        """
+        pipeDefault() {
+            sh 'make wc_gen_library'
+            sh """
+            cp                                    \\
+              service-templates/Dockerfile.sh     \\
+              service-templates/docker-compose.sh \\
+              trickster/
+            """
+        }
       }
 
       runStage('archive trickster') {
