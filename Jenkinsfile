@@ -1,6 +1,6 @@
 #!groovy
 
-def imageTags = "BASE_IMAGE_TAG=117a2e28e18d41d4c3eb76f5d00af117872af5ac BUILD_IMAGE_TAG=ef20e2ec1cb1528e9214bdeb862b15478950d5cd"
+def imageTags = "BASE_IMAGE_TAG=5ea1e10733d806e40761b6c8eec93fc0c9657992 BUILD_IMAGE_TAG=785d48cbfa7e7f355300c08ba9edc6f0e78810cb"
 
 def finalHook = {
   runStage('store CT logs') {

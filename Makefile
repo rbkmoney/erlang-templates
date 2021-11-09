@@ -5,7 +5,7 @@ SERVICE_NAME := service_erlang
 
 #ToDo: Use the latest build image tag
 BUILD_IMAGE_NAME := build-erlang
-BUILD_IMAGE_TAG := 117a2e28e18d41d4c3eb76f5d00af117872af5ac
+BUILD_IMAGE_TAG := 785d48cbfa7e7f355300c08ba9edc6f0e78810cb
 
 CALL_W_CONTAINER := all gen_service gen_library submodules clean
 
