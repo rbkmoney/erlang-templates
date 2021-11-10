@@ -41,7 +41,7 @@ shell: submodules
 	$(REBAR) shell
 
 lint:
-    # Fix to this as soon as prometheus_cowboy has plugins fixed
+    # TODO: Fix to this as soon as prometheus_cowboy has plugins fixed
     # $(REBAR) lint
 	elvis rock -V
 
