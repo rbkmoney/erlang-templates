@@ -33,5 +33,8 @@ gen_service: add_template
 gen_library: add_template
 	rebar3 new erlang-service name=trickster
 
+format:
+	rebar3 fmt -w
+
 clean:
 	rm Dockerfile
