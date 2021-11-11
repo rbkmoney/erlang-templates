@@ -24,9 +24,6 @@ build('erlang-templates', 'docker-host', finalHook) {
     }
   }
 
-  def pipeDefault
-  def pipeErlangService
-  def pipeErlangLib
   runStage('load library pipeline') {
     load("build_utils/jenkins_lib/setup.groovy")(
             ["pipeDefault", "pipeErlangService", "pipeErlangLib"])
