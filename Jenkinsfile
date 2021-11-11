@@ -20,7 +20,7 @@ def embedImageTagsInMakefile = {
 build('erlang-templates', 'docker-host', finalHook) {
   runStage('clone build_utils') {
     withGithubSshCredentials {
-      sh "git clone git@github.com:rbkmoney/build_utils.git build_utils"
+      sh "git clone --branch feat/setup-fun git@github.com:rbkmoney/build_utils.git build_utils"
     }
   }
 
