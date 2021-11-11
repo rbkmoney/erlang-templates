@@ -70,7 +70,7 @@ build('erlang-templates', 'docker-host', finalHook) {
 
     runStage('add git submodule') {
       withGithubSshCredentials {
-        sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
+        sh "git submodule add -b feat/setup-fun git@github.com:rbkmoney/build_utils.git build_utils"
       }
     }
 
@@ -122,7 +122,7 @@ build('erlang-templates', 'docker-host', finalHook) {
 
     runStage('add git submodule') {
       withGithubSshCredentials {
-        sh "git submodule add -b master git@github.com:rbkmoney/build_utils.git build_utils"
+        sh "git submodule add -b feat/setup-fun git@github.com:rbkmoney/build_utils.git build_utils"
       }
     }
 
