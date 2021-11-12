@@ -35,4 +35,8 @@ end_per_suite(C) ->
 %%
 -spec dummy_test(config()) -> any().
 dummy_test(_C) ->
-    ok.
+    {ok, <<"Hello, World!">>} =
+        woody_client:call(
+            {{{name}}_proto:get_service(sample_service), 'SampleFunction', {}},
+            #{url => <<"http://localhost:8080/v1/sample_service">>, event_handler => woody_event_handler_default}
+        ).

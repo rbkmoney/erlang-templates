@@ -41,8 +41,7 @@ health_check_works_test(_) ->
     {ok, {Status, Headers, Body}} = httpc:request("http://localhost:8080/health"),
     {_, 200, "OK"} = Status,
     "application/json" = proplists:get_value("content-type", Headers),
-    true = nomatch /= string:find(Body, "\"service\":\"{{name}}\""),
-    ok.
+    true = nomatch /= string:find(Body, "\"service\":\"{{name}}\"").
 
 -spec prometheus_works_test(config()) -> any().
 prometheus_works_test(_) ->
@@ -54,5 +53,4 @@ prometheus_works_test(_) ->
                 proplists:get_value("content-type", Headers),
                 "text/plain"
             ),
-    true = nomatch /= string:find(Body, "erlang_vm_memory_bytes_total{kind=\"system\"}"),
-    ok.
+    true = nomatch /= string:find(Body, "erlang_vm_memory_bytes_total{kind=\"system\"}").
