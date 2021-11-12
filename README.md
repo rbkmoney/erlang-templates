@@ -63,12 +63,13 @@ erlang-service:
 
 ## Внесение изменений
 
-В случае, если необходимо изменений самих модулей (`.erl`), для использования автоматического форматирования с помощью `erlfmt` (`rebar3 fmt`) требуется временное изменить/удалить строчки с mustache-плейсхолдерами.
+При автоформатировании через `erlfmt` выводятся предупреждения вида:
+```
+service-templates/apps/app/test/app_tests_SUITE.erl:1:17: syntax error before: _tests_SUITE
+```
 
-Например, из-за следующей строки из <file:service-templates/apps/app/test/app_tests_SUITE.erl>:
+Причина ­ mustache-плейсхолдеры, например на следующих строках из <file:service-templates/apps/app/test/app_tests_SUITE.erl>:
 ```erlang
 -module({{name}}_tests_SUITE).
 ```
-`erlfmt` не сможет отформатировать файл в частности и проект до конца в целом.
-
-Временная замена `{{name}}_tests_SUITE` на, например, `name_tests_SUITE` позволит обойти эту проблему.
+**Само форматирование при этом происходит**, поэтому предупреждения можно игнорировать.
