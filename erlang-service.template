@@ -11,7 +11,8 @@
 {template, "service-templates/elvis.config", "{{name}}/elvis.config"}.
 
 %% Protocol
-{file, "service-templates/apps/app/proto/sample_service.thrift", "{{name}}/{{apps_dir}}/{{name}}/proto/sample_service.thrift"}.
+{file, "service-templates/apps/app/proto/sample_service.thrift",
+    "{{name}}/{{apps_dir}}/{{name}}/proto/sample_service.thrift"}.
 
 %% Code
 {template, "service-templates/apps/app/src/app_proto.erl", "{{name}}/{{apps_dir}}/{{name}}/src/{{name}}_proto.erl"}.
