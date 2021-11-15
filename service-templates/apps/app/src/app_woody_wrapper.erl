@@ -58,10 +58,10 @@ call(ServiceName, Function, Args, Opts, Context) ->
     Request = {Service, Function, Args},
     try
         woody_client:call(
-          Request,
-          Opts#{event_handler => {{name}}:woody_event_handlers()},
-          WoodyContext
-         )
+            Request,
+            Opts#{event_handler => {{name}}:woody_event_handlers()},
+            WoodyContext
+        )
     catch
         throw:Reason ->
             woody_error:raise(business, Reason)

@@ -63,13 +63,11 @@ erlang-service:
 
 ## Внесение изменений
 
-При автоформатировании через `erlfmt` выводятся предупреждения вида:
-```
-service-templates/apps/app/test/app_tests_SUITE.erl:1:17: syntax error before: _tests_SUITE
-```
-
-Причина ­ mustache-плейсхолдеры, например на следующих строках из <file:service-templates/apps/app/test/app_tests_SUITE.erl>:
+Из-за наличия в коде mustache-плейсхолдеров следующего вида ( <file:service-templates/apps/app/test/app_tests_SUITE.erl>):
 ```erlang
 -module({{name}}_tests_SUITE).
 ```
-**Само форматирование при этом происходит**, поэтому предупреждения можно игнорировать.
+
+Форматирование через  `erlfmt` становится нетривиальным.
+
+Для этого в `make format` сделана подмена на в большинстве случаев приемлимый для парсинга код через `find`, `xargs` и `sed` (`{{placeholder}}` -> `___placeholder___`) и должна работать для большинства случаев.
