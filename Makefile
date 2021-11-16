@@ -35,7 +35,6 @@ gen_service: add_template
 gen_library: add_template
 	rebar3 new erlang-service name=trickster
 
-SANITIZE_FIND_ARGS := service-templates/ library-templates/ -name "*.erl" -o -name "*.hrl"
 format:
 	find $(SANITIZE_FIND_ARGS) | xargs sed -i 's/{{\(\w\+\)}}/___\1___/g'
 	rebar3 fmt -w
